@@ -1,21 +1,14 @@
 class Instructor::SectionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_authorized_for_current_course, only: [:show]
+  before_action :require_authorized_for_current_course
 
   def new
-    @course = Course.new
+    @section = Section.new
   end
 
   def create
-    @course = current_user.courses.create(course_params)
-    if @course.valid?
-      redirect_to instructor_course_path(@course)
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def show
+    @section = current_course.sections.create(section_params)
+    redirect_to instructor_course_path(current_course)
   end
 
   private
@@ -28,11 +21,11 @@ class Instructor::SectionsController < ApplicationController
 
   helper_method :current_course
   def current_course
-    @current_course ||= Course.find(params[:id])
+    @current_course ||= Course.find(params[:course_id])
   end
 
-  def course_params
-    params.require(:course).permit(:title, :description, :cost)
+  def section_params
+    params.require(:section).permit(:title)
   end
 end
 
