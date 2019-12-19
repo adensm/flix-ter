@@ -10,8 +10,9 @@ CarrierWave.configure do |config|
       secret_access_key: ENV["AWS_SECRET_KEY"],
       region:            ENV["AWS_REGION"]
   }
+  
   if Rails.env.development?
-    config.root = "/"
-    config.cache_dir = File.join('tmp', Rails.env)
+    config.cache_dir = '/home/vagrant/uploads_tmp/tmp/uploads'
+    config.root = '/home/vagrant/uploads_tmp/tmp'
   end
 end
