@@ -10,4 +10,6 @@ CarrierWave.configure do |config|
       secret_access_key: ENV["AWS_SECRET_KEY"],
       region:            ENV["AWS_REGION"]
   }
+  config.root = "/"
+  config.cache_dir = File.join('tmp', Rails.env)
 end
